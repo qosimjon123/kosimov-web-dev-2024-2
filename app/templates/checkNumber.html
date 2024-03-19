@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+       <h1> Форма для проверки номера телефона</h1>
+        <form method="POST">
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label class="form-label" for="typePhone">Phone number input</label>
+                    <div class="form-outline d-flex">
+                        <div class="row">
+                           <div class="col-md-8 col-sm-10" >
+                               <input type="tel" id="typePhone" class="form-control {{ category }}" name="number"
+                               pattern="[0-9\(\)\.\-\s]+*"
+                               value="{{ request.form.get("number","") }}" required/>
+                               <div class="valid-feedback">
+                                    {{ text }}
+                               </div>
+                                <div class="invalid-feedback">
+                                    {{ text }}
+                                </div>
+                           </div>
+                           <div class="col-md-4 col-sm-10">
+                               <button type="submit" class="btn btn-primary  w-100 mt-sm-3  mt-md-0">Проверить</button>
+                           </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
