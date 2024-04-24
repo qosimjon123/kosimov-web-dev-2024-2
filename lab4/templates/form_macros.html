@@ -1,0 +1,68 @@
+{% macro render_create_user_form(form) %}
+    <div class="col-md-4">
+        {{ form.login.label(class="form-label") }}
+        {{ form.login(class="form-control" + (' is-invalid' if form.login.errors | length > 0 else ''), required="required") }}
+        <div class="invalid-feedback">
+            {% for error in form.errors["login"] %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        {{ form.first_name.label(class="form-label") }}
+        {{ form.first_name(class="form-control" + (' is-invalid' if form.first_name.errors | length > 0 else ''), required="required") }}
+        <div class="invalid-feedback">
+            {% for error in form.errors["first_name"] %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        {{ form.middle_name.label(class="form-label") }}
+        {{ form.middle_name(class="form-control" + (' is-invalid' if form.middle_name.errors | length > 0 else ''), required="required") }}
+        <div class="invalid-feedback">
+            {% for error in form.errors["middle_name"] %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        {{ form.last_name.label(class="form-label") }}
+        {{ form.last_name(class="form-control" + (' is-invalid' if form.last_name.errors | length > 0 else ''), required="required") }}
+        <div class="invalid-feedback">
+            {% for error in form.errors["last_name"] %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    {% if request.endpoint == 'create' %}
+        <div class="col-md-4">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control" + (' is-invalid' if form.password.errors | length > 0 else ''), value=form.password.data) }}
+
+            <div class="invalid-feedback">
+                {% for error in form.errors["password"] %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            {{ form.confirm.label(class="form-label") }}
+            {{ form.confirm(class="form-control" + (' is-invalid' if form.confirm.errors | length > 0 else ''), required="required") }}
+            <div class="invalid-feedback">
+                {% for error in form.errors["confirm"] %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="col-md-4">
+        {{ form.select_role.label(class="form-label") }}
+        {{ form.select_role(class="form-select" + (' is-invalid' if form.select_role.errors | length > 0 else ''), required="required") }}
+        <div class="invalid-feedback">
+            {% for error in form.errors["select_role"] %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}

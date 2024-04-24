@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Login</th>
+      <th scope="col">FIO</th>
+      <th scope="col">Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{ table[0].id }}</th>
+      <td>{{ table[0].login }}</td>
+      <td>{{ table[0].first_name }} {{ table[0].middle_name }} {{ table[0].last_name }}</td>
+      <td>{{ table[0].description }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

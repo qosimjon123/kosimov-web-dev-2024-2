@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-success table-hover table-striped">
+        <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">ФИО</th>
+              <th scope="col">Роль</th>
+              <th scope="col">действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if table %}
+                {% for i in range(table | length) %}
+                    <tr>
+                        <th class="col-md-1" scope="row">{{ i + 1 }}</th>
+                        <td class="col-md-2 username" >{{ table[i].first_name }} {{ table[i].middle_name }} {{ table[i].last_name }}</td>
+                        <td class="col-md-4">{{ table[i].role_description }}</td>
+                        <td class="col-md-3"><a class="btn btn-primary view" href="{{ url_for('view', id=table[i].id) }}"  >Просмотр</a>
+
+                            {% if current_user.is_authenticated%}
+                                <a class="btn btn-primary edit" href="{{ url_for('edit', id=table[i].id) }}"> Редактирование</a>
+                            {% endif %}
+                            {% if current_user.is_authenticated%}
+                                <button class="btn btn-primary delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="{{ table[i].id }}">Удаление</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>Нет данные о пользователях</td>
+                </tr>
+            {% endif %}
+
+
+        </tbody>
+    </table>
+     {% if current_user.is_authenticated%}
+    <a class="btn btn-outline-primary" href="{{ url_for('create') }}" > Создание пользователя </a>
+    {% endif %}
+        <!-- Modal -->
+   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Форма удаления</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Вы уверены, что хотите удалить пользователя: <span class="name-user"></span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            <a id="deleteButton" class="btn btn-primary" >Удалить</a>
+          </div>
+        </div>
+      </div>
+   </div>
+<script src="{{ url_for("static", filename="delete.js") }}"></script>
+{% endblock %}
