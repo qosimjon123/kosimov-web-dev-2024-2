@@ -1,0 +1,16 @@
+<div class="container">
+    <h2> Оставить отзыв </h2>
+    <form method="post" action="{{ url_for("courses.rating", course_id=course.id) }}">
+        <select class="form-select mt-4 w-25" id="course-category" name="category_ids" title="Категория курса">
+            <option value="" disabled selected>Выбрать оценку</option>
+            {% for key, value in ratings.items()  %}
+                <option value="{{ value }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+        <div class="form-floating my-4 w-50 h-40">
+              <textarea class="form-control" placeholder="Leave a comment here" name="text" id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">Comments</label>
+        </div>
+        <button class="btn btn-primary mb-2" type="submit">Отправить</button>
+    </form>
+</div>

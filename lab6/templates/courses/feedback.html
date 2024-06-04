@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% from 'pagination.html' import render_pagination %}
+
+{% block content %}
+    <div class="container">
+    <form method="GET" action="{{ url_for('courses.feedbacks', course_id=course_id) }}">
+        <div class="form-group">
+            <label for="sort_order" class="mt-3">Сортировать по</label>
+            <select class="form-control mt-3" id="sort_order" name="sort_order">
+                <option value="newest" {% if request.args.get('sort_order') == 'newest' %}selected{% endif %}>Новизне</option>
+                <option value="positive" {% if request.args.get('sort_order') == 'positive' %}selected{% endif %}>Положительные</option>
+                <option value="negative" {% if request.args.get('sort_order') == 'negative' %}selected{% endif %}>Отрицательные</option>
+            </select>
+        </div>
+        <button type="submit" class="btn my-3 btn-primary">Применить</button>
+    </form>
+    </div>
+    <div class="container">
+        <h2>Отзывы</h2>
+        {% for i in reviews %}
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th rowspan="3" class="" width="60em">
+                                <img class="img-fluid rounded-circle cursor-pointer" src="{{ url_for('static', filename='images/default-profile-picture-300x300.jpeg') }}" alt="profile-pic">
+                            </th>
+                            <th>{{ i[0] }} {{ i[1] if i[1] != None else '' }}  {{ i[2] }}</th>
+                            <th class="text-end">{{ i[3] }}</th>
+                        </tr>
+                        <tr>
+                            <th class="text-left">{{ "★" * i[4] }} </th>
+                        </tr>
+                        <tr>
+                            {% if i[5] != '' %}
+                            <th scope="row" colspan="3">{{ i[5] }}</th>
+                            {% else %}
+                            <th scope="row" colspan="3">Без комментарии... </th>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+         <div class="mb-5">
+            {{ render_pagination(pagination, 'courses.feedbacks', {'course_id': course_id}) }}
+
+        </div>
+
+    </div>
+{% endblock %}
