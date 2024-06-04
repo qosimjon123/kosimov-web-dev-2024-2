@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% from 'form.html' import form  with context%}
+
+{{ form(user,roles)}}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+{%block content%}
+    <ul class="nav nav-tabs mt-3">
+        {%if current_user.can('show_logs',user)%}
+        <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'logs.show_user_logs' %} active {% endif %}" aria-current="page" href="{{ url_for('logs.show_user_logs')}}">Журнал посещений</a>
+        </li>
+        {%else%}
+        <li class="nav-item">
+            <a class="nav-link {% if request.endpoint == 'logs.show_user_logs' %} active {% endif %}" aria-current="page" href="{{ url_for('logs.show_user_logs')}}">Журнал посещений</a>
+        </li>
+        {%endif%}
+        {%if current_user.can('show_logs',user)%}
+        <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'logs.show_count_logs' %} active {% endif%}" aria-current="page" href="{{url_for('logs.show_count_logs')}}">Журнал пользователей</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {% if request.endpoint == 'logs.show_page_logs' %} active {% endif%}" aria-current="page" href="{{url_for('logs.show_page_logs')}}">Журнал страниц</a>
+        </li>
+        {%endif%}
+
+  </ul>
+{%block visits%}
+
+{%endblock%}
+
+
+{%endblock%}

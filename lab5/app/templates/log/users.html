@@ -1,0 +1,28 @@
+{%extends "/log/base.html"%}
+
+{%block visits%}
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Id пользователя</th>
+            <th>Количество посещенных страниц</th>
+        </tr>
+    </thead>
+<tbody>
+    {%for log in logs%}
+        <tr>
+            <td>{{loop.index}}</td>
+            {%if log.user_id==None%}
+            <td>Неаутентифицированный пользователь</td>
+            {%else%}
+            <td>{{log.second_name}} {{log.first_name}} {{log.last_name}}</td>
+            {%endif%}
+            <td>{{log.count}}</td>
+        </tr>
+    {%endfor%}
+</tbody>
+</table>
+<a class="btn btn-success" href="export_csv">Выгрузка CSV таблицы</a>
+
+{%endblock%}

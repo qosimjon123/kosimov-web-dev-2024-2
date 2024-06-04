@@ -1,0 +1,34 @@
+{%extends "/log/base.html"%}
+
+{%block visits%}
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Id лога</th>
+                <th>ФИО пользователя</th>
+                <th>Посещённая страница</th>
+                <th>Время посещения</th>
+            </tr>
+        </thead>
+    <tbody>
+        {%for log in logs%}
+            <tr>
+                <td>{{log.id}}</td>
+                {%if log.user_id==None%}
+                <td>Неаутентифицированный пользователь</td>
+                {%else%}
+                <td>{{log.second_name}} {{log.first_name}} {{log.last_name}}</td>
+                {%endif%}
+                <td>{{log.path}}</td>
+                <td>{{log.created_at}}</td>
+            </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+
+    {% from 'pagination.html' import pagination %}
+
+    {{ pagination(count, page)}}
+
+    <a class="btn btn-success" href="export_csv">Выгрузка CSV таблицы</a>
+{%endblock%}
